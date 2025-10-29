@@ -1,93 +1,495 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>H4CK3D BY ZUKO </title>
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background-image:  url('https://media0.giphy.com/media/v1.Y2lkPTZjMDliOTUydHR4M3gwZnF1ajh4N3VzNzZranV1cml0NGgyeXprZzl2MWs4dmd5aCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/4H3Ii5eLChYul9p7NL/giphy.gif');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-        .content {
-            color: #ff3333;
-            font-size: 4rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 40px;
-            animation: glowing 2s ease-in-out infinite, textColor 5s infinite alternate;
-            text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 40px #ff0000;
-        }
-
-        /* Parlama animasyonu */
-     @keyframes textColor {
-            0% { color: #ff3333; }
-            50% { color: #ff6600; }
-            100% { color: #ff3333; }
-        }
-
-        /* Renk geçişi animasyonu */
-        @keyframes textColor {
-            0% { color: #ff3333; }
-            50% { color: #ff6600; }
-            100% { color: #ff3333; }
-        }
-
-        /* Footer yazıları için stil */
-        .footer-content {
-          position: fixed;
-            bottom: 10px;
-            width: 100% ;
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 10px;
-            color: #ff3333;
-            letter-spacing: 10px;
-            animation: glowing 2s ease-in-out infinite, textColor 5s infinite alternate;
-            text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 40px #ff0000;
-        }
-    /* Parlama animasyonu */
-     @keyframes textColor {
-            0% { color: #ff3333; }
-            50% { color: #ff6600; }
-            100% { color: #ff3333; }
-        }
-
-        @media (max-width: 600px) {
-            .content {
-                font-size: 2.5rem;
-            }
-            .footer-content {
-                font-size: 1.2rem;
-            }
-            /* Parlama animasyonu */
-     @keyframes textColor {
-            0% { color: #ff3333; }
-            50% { color: #ff6600; }
-            100% { color: #ff3333; }
-        }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title> ZUKO GURURLA SUNAR</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    html, body { margin:0;padding:0;width:100vw;height:100vh;overflow:hidden;background:#04080f radial-gradient(circle at 80% 10%, #002233 20%, transparent 70%);}
+    .bg-fader{position:fixed;inset:0;width:100vw;height:100vh;object-fit:cover;z-index:0;opacity:0;transition:opacity 1.7s cubic-bezier(.77,0,.18,1), filter 1.35s cubic-bezier(.77,0,.18,1);pointer-events:none;filter:blur(18px) brightness(0.77);}
+    .bg-fader.active{opacity:1;}
+    .bg-fader.unblur{filter:blur(0px) brightness(1);transition:filter 1.2s cubic-bezier(.77,0,.18,1);}
+    #intro-logo{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(1.04);z-index:10000;pointer-events:none;opacity:1;transition:opacity 0.7s cubic-bezier(.7,0,.19,1);filter:drop-shadow(0 0 25px #00fff9) drop-shadow(0 0 30px #001d2e88);animation:logoPulse 1.6s infinite alternate;will-change:filter,opacity;background:linear-gradient(135deg,#00fff9 16%,#001d2e 100%);border-radius:50%;box-shadow:0 0 0 4px #00fff94c,0 0 30px 6px #001d2e77 inset;}
+    @keyframes logoPulse{0%{filter:drop-shadow(0 0 8px #00fff9) brightness(1.1);}50%{filter:drop-shadow(0 0 48px #00fff9) brightness(2.1);}100%{filter:drop-shadow(0 0 12px #00fff9) brightness(1.15);}}
+    #rain-canvas{position:fixed;inset:0;width:100vw;height:100vh;z-index:2;pointer-events:none;filter:blur(0.5px) brightness(1.06);opacity:1;transition:opacity 0.4s;}
+    #particles-js{position:fixed;inset:0;width:100vw;height:100vh;z-index:1;pointer-events:none;}
+    #custom-particles{position:fixed;inset:0;width:100vw;height:100vh;z-index:3;pointer-events:none;mix-blend-mode:screen;opacity:0.85;}
+    .flicker{animation:flickerAnim 0.09s infinite steps(2);}
+    @keyframes flickerAnim{0%{opacity:1;filter:none;}92%{opacity:0.97;}96%{opacity:0.18;filter:brightness(1.7) blur(1.2px);}98%{opacity:0.85;}100%{opacity:1;filter:none;}}
+    .footer-center{position:fixed;left:50%;bottom:3vw;transform:translateX(-50%);z-index:10;color:#aefcff;font-size:1.23rem;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:.13em;text-shadow:0 0 7px #021b,0 0 14px #0ffb,0 0 1px #fff,0 0 7px #00e4ff;opacity:0.72;user-select:none;pointer-events:none;border:none;background:none;text-align:center;white-space:nowrap;transition:opacity 0.6s;animation:footerFadeIn 2.5s cubic-bezier(.7,0,.19,1) 2.2s both;}
+    @keyframes footerFadeIn{0%{opacity:0;}100%{opacity:0.72;}}
+    .footer-center span{background:linear-gradient(90deg,#00fff9 50%,#b9ffff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .glitch-gif{position:fixed;inset:0;width:100vw;height:100vh;object-fit:cover;z-index:2000;opacity:0;pointer-events:none;background:rgba(0,0,0,0.14);filter:brightness(1.19) blur(0.2px) drop-shadow(0 0 50px #00fff9cc);transition:opacity 0.5s;animation:none;}
+    .glitch-gif.glitchOn{opacity:0.78;animation:glitchGifAnim 2.6s linear forwards;}
+    @keyframes glitchGifAnim{0%{opacity:0;filter:brightness(1.1) blur(0.6px);}8%{opacity:1;}13%{filter:brightness(1.35) blur(0.8px);}40%{opacity:1;filter:brightness(1.16) blur(0.2px);}49%{filter:brightness(1.27) blur(2px);}65%{filter:brightness(1.13) blur(0);}87%{opacity:0.82;}100%{opacity:0;filter:brightness(1.05) blur(0.6px);}}
+    #scanline{position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:99999;pointer-events:none;mix-blend-mode:screen;background:repeating-linear-gradient(to bottom,#00fff9 0px,#00fff9 2px,transparent 3px,transparent 7px);opacity:0.12;animation:scanAnim 1.2s cubic-bezier(.9,0,.22,1) 0.3s 1 both;will-change:opacity,transform;transition:opacity .6s;}
+    @keyframes scanAnim{0%{opacity:0.7;transform:translateY(-100vh);}70%{opacity:0.18;transform:translateY(7vh);}100%{opacity:0.12;transform:translateY(0);}
+    }
+    #term-box{position:fixed;right:5vw;bottom:7vw;width:340px;max-width:90vw;height:170px;background:rgba(6,18,22,0.83);border:1.5px solid #00fff9bb;border-radius:7px 7px 11px 11px;box-shadow:0 0 24px #00fff966,0 0 0 2px #00fff911 inset;z-index:50;font-family:'Fira Mono','Consolas',monospace;font-size:1.05rem;color:#bffaff;overflow:hidden;display:flex;flex-direction:column;opacity:0.93;transition:box-shadow 0.22s;animation:terminalIn 1.44s cubic-bezier(.7,0,.19,1) 1.4s both;user-select:text;}
+    #term-bar{width:100%;height:23px;background:linear-gradient(90deg,#00fff9 4%,#002a3b 100%);border-bottom:1px solid #0ffb;color:#021b;font-weight:bold;font-family:'Orbitron',monospace;font-size:0.98rem;padding-left:9px;letter-spacing:.11em;display:flex;align-items:center;user-select:none;opacity:.83;}
+    #term-content{flex:1 1 0%;padding:10px 12px 9px 16px;overflow-y:auto;word-break:break-all;font-size:1.02rem;background:transparent;}
+    @keyframes terminalIn{0%{opacity:0;transform:scale(0.85) translateY(60px);}100%{opacity:.93;transform:none;}
+    }
+    #dust-overlay{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:50;opacity:0;transition:opacity .7s;}
+    #hack-terminal {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+      width: 640px;
+      max-width: 99vw;
+      height: 390px;
+      background: #111;
+      z-index: 30000;
+      display: none;
+      flex-direction: column;
+      font-family: 'Fira Mono', 'Consolas', monospace;
+      font-size: 1.12rem;
+      color: #d9f8d8;
+      overflow: hidden;
+      box-shadow: 0 0 42px #00ffb8cc, 0 0 0 4px #000b;
+      padding: 0;
+      pointer-events: none;
+      opacity: 1;
+    }
+    #hack-terminal::before {
+      content: "";
+      background: url('https://hizliresim.com/dkpg94j.jpg') center 30px no-repeat;
+      background-size: 64px 64px;
+      opacity: 0.085;
+      position: absolute;
+      left: 0; top: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    #hack-terminal .bar {
+      width:100%;height:28px;background:#191c24;border-bottom:1.2px solid #0ffb;color:#0ff;font-weight:bold;
+      font-family:'Fira Mono',monospace;font-size:1.22rem;padding-left:15px;letter-spacing:.08em;
+      display:flex;align-items:center;user-select:none;opacity:.97;
+      margin-bottom:0;position:relative;z-index:2;
+    }
+    #hack-terminal .content {
+      flex:1 1 0%;overflow-y:auto;word-break:break-all;font-size:1.09rem;background:transparent;
+      color:#e5ffe0; padding:8px 6px 4px 18px;height:100%;position:relative;z-index:2;
+    }
+    #hack-terminal .prompt {
+      color:#90ff90;
+      font-weight:bold;
+      text-shadow:0 0 3px #0f0,0 0 1px #fff;
+      font-size:1.08em;
+    }
+    #hack-terminal .cursor-blink {
+      display:inline-block;
+      width:12px;
+      height:1.13em;
+      margin-left:2px;
+      background:#90ff90;
+      border-radius:2px;
+      vertical-align:middle;
+      animation: blink 0.6s steps(2) infinite;
+    }
+    @keyframes blink { 0%{opacity:1;} 50%{opacity:0;} 100%{opacity:1;} }
+    .smoke-css {
+      position:fixed;left:0;top:0;width:100vw;height:100vh;pointer-events:none;z-index:39999;display:none;
+    }
+    .smoke-css.active {
+      display:block;
+      animation: smokeGo 1.2s cubic-bezier(.4,0,.2,1);
+    }
+    @keyframes smokeGo {
+      0%   { opacity: 0.0; filter: blur(30px); }
+      5%   { opacity: 0.32; filter: blur(15px);}
+      15%  { opacity: 0.65; filter: blur(8px);}
+      50%  { opacity: 0.55; filter: blur(4px);}
+      70%  { opacity: 0.22; filter: blur(12px);}
+      100% { opacity: 0;   filter: blur(38px);}
+    }
+    .smoke-css .smoke1, .smoke-css .smoke2, .smoke-css .smoke3, .smoke-css .smoke4, .smoke-css .smoke5 {
+      position: absolute;
+      left: 50%; top: 50%;
+      border-radius: 50%;
+      opacity: 0.22;
+      background: radial-gradient(circle at 47% 44%, #ededed 0%, #00fff9 55%, #0000 100%);
+      pointer-events: none;
+      mix-blend-mode: lighten;
+    }
+    .smoke-css .smoke1 { width: 310px; height: 180px; margin:-90px -155px; animation: smoke1anim 1.1s ease-in; }
+    .smoke-css .smoke2 { width: 260px; height: 120px; margin:-65px -130px; animation: smoke2anim 1.0s .08s ease-in;}
+    .smoke-css .smoke3 { width: 380px; height: 110px; margin:-55px -190px; animation: smoke3anim .98s .1s ease-in;}
+    .smoke-css .smoke4 { width: 440px; height: 120px; margin:-50px -220px; animation: smoke4anim .92s .17s ease-in;}
+    .smoke-css .smoke5 { width: 420px; height: 160px; margin:-80px -210px; animation: smoke5anim 1.14s .12s ease-in;}
+    @keyframes smoke1anim {0%{transform:scale(.5) translateY(70px);}50%{opacity:.45;}100%{transform:scale(2.1) translateY(-110px);opacity:0;}}
+    @keyframes smoke2anim {0%{transform:scale(.7) translateY(90px);}50%{opacity:.31;}100%{transform:scale(2.7) translateY(-80px);opacity:0;}}
+    @keyframes smoke3anim {0%{transform:scale(.5) translateY(50px);}50%{opacity:.39;}100%{transform:scale(1.7) translateY(-130px);opacity:0;}}
+    @keyframes smoke4anim {0%{transform:scale(.6) translateY(30px);}50%{opacity:.27;}100%{transform:scale(2.3) translateY(-120px);opacity:0;}}
+    @keyframes smoke5anim {0%{transform:scale(.6) translateY(60px);}50%{opacity:.32;}100%{transform:scale(2.5) translateY(-170px);opacity:0;}
+    }
+    .jet-hack-gif {
+      position: fixed;
+      left: 50%;
+      top: 52%;
+      width: 410px;
+      max-width: 90vw;
+      height: 160px;
+      transform: translate(-50%,-50%);
+      z-index: 35000;
+      opacity: 0;
+      filter: drop-shadow(0 0 66px #00fff9bb) brightness(1.13) blur(.19px);
+      animation: none;
+      pointer-events: none;
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+    .jet-hack-gif.visible {
+      animation: jetGifIn .9s cubic-bezier(.9,0,.18,1) forwards;
+    }
+    @keyframes jetGifIn {
+      0% { opacity: 0; filter: blur(44px) brightness(3.6); }
+      80%{ opacity:0.94; filter:blur(1.5px) brightness(1.15);}
+      100%{ opacity: 1; filter: blur(0.1px) brightness(1.11);}
+    }
+    @media (max-width:900px) {
+      #hack-terminal {width:99vw;max-width:99vw;height:220px;font-size:.87rem;}
+      #hack-terminal .bar{font-size:.94rem;}
+      .jet-hack-gif {width:99vw;height:70px;}
+    }
+  </style>
 </head>
 <body>
-    <div class="content">
-        𝐇𝟒𝐂𝐊𝟑𝐃 𝐁𝐘 𝐙𝐔𝐊𝐎
-        𝐀𝐍𝐃 𝐍𝐄𝐒𝐀𝐒           
-    </div>
-    <div class="footer-content">
-           <br>  <br>
-    </div>
+  <div id="scanline"></div>
+  <a href="https://hizliresim.com/ivekhr0">
+  <img src="https://i.hizliresim.com/ivekhr0.jpg" class="bg-fader active" id="bg1" alt="bg1"></a>
+  <a href="https://hizliresim.com/tf5g990">
+  <img src="https://i.hizliresim.com/tf5g990.jpg" class="bg-fader" id="bg2" alt="bg2"></a>
+  <a href="https://hizliresim.com/bk72cnl">
+  <img src="https://i.hizliresim.com/bk72cnl.jpg" class="bg-fader" id="bg3" alt="bg3"></a>
+  <a href="https://hizliresim.com/jgbvic2">
+  <img src="https://i.hizliresim.com/jgbvic2.jpg" id="intro-logo" style="width:170px;height:170px;" alt="logo"></a>
+  <img src="https://i.pinimg.com/originals/6f/0e/da/6f0eda021f598ec598137e75e96c77b5.gif" id="glitch-gif" class="glitch-gif" alt="glitch-gif">
+  <canvas id="rain-canvas"></canvas>
+  <div id="particles-js"></div>
+  <canvas id="custom-particles"></canvas>
+  <div id="dust-overlay"></div>
+  <canvas id="f4-canvas"></canvas>
+  <div class="footer-center"><span>HELLO ADMİN! SYSTEM HACKED!</span></div>
+  <div id="term-box">
+    <div id="term-bar">TERMINAL EKRANI</div>
+    <div id="term-content"></div>
+  </div>
+  <audio id="bg-audio" src="https://dl.dropboxusercontent.com/scl/fi/9jaenb6qqv4o2t4e6rb5q/_ZUUP8pU7NI.mp3?rlkey=3uw4c5d1j2vkvqk4xw7g6o6xx&dl=0" autoplay loop></audio>
+  <iframe id="yt-audio" style="display:none" width="0" height="0" src="https://www.youtube.com/embed/_ZUUP8pU7NI?autoplay=1&loop=1&playlist=_ZUUP8pU7NI" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+  <div id="hack-terminal">
+    <div class="bar">root@ZUKO:~</div>
+    <div class="content" id="hack-term-content"></div>
+  </div>
+  <div id="smoke-css" class="smoke-css">
+    <div class="smoke1"></div>
+    <div class="smoke2"></div>
+    <div class="smoke3"></div>
+    <div class="smoke4"></div>
+    <div class="smoke5"></div>
+  </div>
+  <img src="https://i.gifer.com/86BI.gif" id="jet-gif" class="jet-hack-gif" alt="hack jet">
+  <audio id="jet-audio" src="https://cdn.pixabay.com/audio/2022/10/16/audio_12dfe0e2bc.mp3" preload="auto"></audio>
+  <script>
+    setTimeout(()=>{ document.getElementById('scanline').style.opacity=0; }, 2100);
+
+    setTimeout(startHackAnimation, 1900);
+
+    function startHackAnimation() {
+      const lines = [
+`┌─[root@ZUKO]─[~/projects/pentest]
+└──╼ $ nmap -A -T4 000.0.0.0:1912
+Starting Nmap 7.93 ( https://nmap.org ) at 2025-07-29 01:59 UTC
+Nmap scan report for 000.0.0.0:1912
+Host is up (0.00056s latency).
+Not shown: 998 closed ports
+PORT     STATE SERVICE VERSION
+22/tcp   open  ssh     OpenSSH 7.9p1 Debian 10+deb10u2 (protocol 2.0)
+80/tcp   open  http    Apache httpd 2.4.38 ((Debian))
+|_http-server-header: Apache/2.4.38 (Debian)
+MAC Address: 08:00:000.0.0.0:1912 (Oracle VirtualBox virtual NIC)
+OS: Linux 4.19 (Debian)
+`,
+`┌─[root@ZUKO]─[~/projects/pentest]
+└──╼ $ ssh admin@000.0.0.0:1912
+admin@000.0.0.0:1912's password: *********
+Linux server 4.19.0-21-amd64 #1 SMP Debian 4.19.249 x86_64
+Last login: Tue Jul 29 01:57:29 2025 from 000.0.0.0:1912
+Welcome to Kali GNU/Linux Rolling`,
+`┌─[admin@server]─[~]
+└──╼ $ sudo -l
+[sudo] password for admin: *********
+Matching Defaults entries for admin on server:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+User admin may run the following commands on server:
+    (ALL : ALL) ALL
+`,
+`┌─[admin@server]─[~]
+└──╼ $ sudo su
+root@server:/home/admin# cd /var/www/panel
+root@server:/var/www/panel# ls -la
+total 44
+drwxr-xr-x 5 root root 4096 Jul 29 01:53 .
+drwxr-xr-x 6 root root 4096 Jul 29 01:00 ..
+-rw-r--r-- 1 root root 2359 Jul 29 01:41 index.php
+-rw-r--r-- 1 root root  531 Jul 29 01:23 config.php
+-rw-r--r-- 1 root root 1092 Jul 29 01:17 db.php
+drwxr-xr-x 2 root root 4096 Jul 29 01:12 logs
+drwxr-xr-x 2 root root 4096 Jul 29 01:07 secrets
+`,
+`┌─[root@server]─[/var/www/panel]
+└──╼ $ cat secrets/flag.txt
+FLAG{U1KU1912_REAL_PENTEST_2025}
+`,
+`┌─[root@server]─[/var/www/panel]
+└──╼ $ mysql -u root -p
+Enter password: *********
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 13
+Server version: 10.3.29-MariaDB-0+deb10u1 Debian 10
+`,
+`MariaDB [(none)]> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| panel              |
+| users              |
++--------------------+
+
+MariaDB [(none)]> USE panel;
+Database changed
+
+MariaDB [panel]> SHOW TABLES;
++------------------+
+| Tables_in_panel  |
++------------------+
+| admins           |
+| logs             |
+| shell            |
+| secrets          |
++------------------+
+`,
+`MariaDB [panel]> SELECT * FROM admins;
++----+----------+----------------------------------+--------------------------+---------------------+
+| id | username | password                         | email                    | last_login          |
++----+----------+----------------------------------+--------------------------+---------------------+
+| 1  | admin    | $2b0092x$hu...                     | admin@site.com           | 2025-07-29 00:25:11 |
+| 2  | u1ku1912 | $xxxxxxxxxxxx                    | u1ku1912@                | 2025-07-28 23:15:57 |
++----+----------+----------------------------------+--------------------------+---------------------+`,
+`MariaDB [panel]> DROP TABLE logs;
+Query OK, 0 rows affected (0.02 sec)
+MariaDB [panel]> SELECT key FROM secrets LIMIT 1;
++------------------------------------------+
+| key                                      |
++------------------------------------------+
+| 0xC0FFEE1337BEEFDEADC0DEBEEFBABE00001912 |
++------------------------------------------+
+
+MariaDB [panel]> exit
+Bye
+`,
+`┌─[root@ZUKO]─[/var/www/panel]
+└──╼ $ python shell.py --sql-exploit --dump-db
+[*] Exploit başlatıldı.
+[*] Veritabanına ulaşıldı!<span class="cursor-blink"></span>
+`
+      ];
+      const hackTerm = document.getElementById('hack-terminal');
+      const hackContent = document.getElementById('hack-term-content');
+      hackTerm.style.display="flex";
+      hackTerm.style.opacity = "1";
+      hackContent.innerHTML = "";
+      let idx = 0;
+      function typeNext() {
+        if(idx>=lines.length) {
+          setTimeout(closeTerminalAndSmoke, 800);
+          return;
+        }
+        const l = lines[idx];
+        l.split('\n').forEach((line) => {
+          const el = document.createElement('div');
+          if(/^(\$|>|\*|\[|\]|root@|admin@|MariaDB|\┌|└|[*])/i.test(line.trim()) || line.match(/--sql-exploit/)) {
+            el.innerHTML = "<span class='prompt'>" + line + "</span>";
+          } else {
+            el.textContent = line;
+          }
+          hackContent.appendChild(el);
+        });
+        hackContent.scrollTop = hackContent.scrollHeight;
+        idx++;
+        setTimeout(typeNext, 220+Math.random()*80);
+      }
+      typeNext();
+    }
+
+    function closeTerminalAndSmoke() {
+      const hackTerm = document.getElementById('hack-terminal');
+      hackTerm.style.transition = 'opacity 0.39s cubic-bezier(.8,0,.2,1)';
+      hackTerm.style.opacity = '0';
+      setTimeout(() => {
+        hackTerm.style.display = 'none';
+        showSmokeCSS();
+      }, 390);
+    }
+
+    function showSmokeCSS() {
+      const smoke = document.getElementById('smoke-css');
+      smoke.classList.add('active');
+      setTimeout(() => {
+        smoke.classList.remove('active');
+        showJetGif();
+      }, 1200);
+    }
+
+    function showJetGif() {
+      const jet = document.getElementById('jet-gif');
+      const jetAudio = document.getElementById('jet-audio');
+      jet.classList.add('visible');
+      jetAudio.currentTime = 0;
+      jetAudio.play();
+      setTimeout(()=>{
+        jet.classList.remove('visible');
+        jet.style.opacity=0;
+      }, 2400);
+    }
+
+    setTimeout(()=>{
+      document.getElementById('intro-logo').style.opacity = 0;
+      for(let i=1;i<=3;i++) {
+        document.getElementById('bg'+i).classList.add('unblur');
+      }
+      setTimeout(()=>{
+        document.getElementById('intro-logo').style.display = 'none';
+      },750);
+    }, 1800);
+
+    const bgCount = 3;
+    let current = 1;
+    let gifOnce = false;
+    setInterval(() => {
+      document.getElementById('bg'+current).classList.remove('active');
+      current = (current % bgCount) + 1;
+      document.getElementById('bg'+current).classList.add('active');
+      if(current === 3 && !gifOnce) {
+        gifOnce = true;
+        var gif = document.getElementById('glitch-gif');
+        gif.classList.add('glitchOn');
+        setTimeout(()=>gif.classList.remove('glitchOn'), 2600);
+      }
+    }, 9000);
+
+    const canvas = document.getElementById('rain-canvas');
+    const ctxRain = canvas.getContext('2d');
+    function resizeRain(){
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeRain);
+    resizeRain();
+
+    class Raindrop {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * -canvas.height;
+        this.length = 20 + Math.random() * 30;
+        this.speed = 6.8 + Math.random() * 5.2;
+        this.opacity = 0.15 + Math.random() * 0.28;
+        this.width = 1.2 + Math.random() * 1.6;
+        this.splash = 0;
+      }
+      draw() {
+        ctxRain.save();
+        ctxRain.globalAlpha = this.opacity;
+        let grad = ctxRain.createLinearGradient(this.x, this.y, this.x, this.y+this.length);
+        grad.addColorStop(0, "#c6fdff");
+        grad.addColorStop(1, "#00eaff");
+        ctxRain.strokeStyle = grad;
+        ctxRain.lineWidth = this.width;
+        ctxRain.beginPath();
+      ctx.arc(this.x, this.y, this.radius*2, 0, Math.PI*2);
+        ctx.fillStyle = g;
+        ctx.shadowColor = this.color;
+        ctx.shadowBlur = 14;
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+    cp.addEventListener('pointermove', e => {
+      for(let i=0;i<3;i++)
+        cpParticles.push(new GlowParticle(e.clientX + Math.random()*14-7, e.clientY + Math.random()*14-7));
+    });
+    function animateCP() {
+      cpctx.clearRect(0,0,cp.width,cp.height);
+      cpParticles = cpParticles.filter(p=>p.update());
+      for(const p of cpParticles) p.draw(cpctx);
+      requestAnimationFrame(animateCP);
+    }
+    animateCP();
+
+    const termLines = [
+      "u1ku1912@main:~$ npm run ultra",
+      "Loading assets... [██████████] 100%",
+      "Bağlantı: 000.0.0.0:1912",
+      "Kod enjekte edildi",
+      "export const PRO = true;",
+      "console.log('ZUKO')",
+      "Veritabanına ulaşıldı",
+      "npm i u1ku1912-coolness",
+      "Bağlantı sağlandı",
+
+    ];
+    const termBox = document.getElementById('term-content');
+    let tIdx = 0;
+    function addTermLine(line){
+      const div = document.createElement('div');
+      div.textContent = line;
+      termBox.appendChild(div);
+      termBox.scrollTop = termBox.scrollHeight;
+    }
+    function termLoop(){
+      if(tIdx < termLines.length){
+        addTermLine(termLines[tIdx]);
+        tIdx++;
+        setTimeout(termLoop, 750 + Math.random()*500);
+      } else {
+        setTimeout(()=>{
+          termBox.innerHTML = '';
+          tIdx = 0;
+          setTimeout(termLoop, 1200);
+        }, 2222);
+      }
+    }
+    setTimeout(termLoop, 2600);
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js",{
+      "particles":{
+        "number":{"value":82,"density":{"enable":true,"value_area":900}},
+        "color":{"value":"#b9ffff"},
+        "shape":{"type":"circle"},
+        "opacity":{"value":0.13,"random":true},
+        "size":{"value":2.5,"random":true},
+        "line_linked":{"enable":false},
+        "move":{"enable":true,"speed":1.7,"direction":"none","random":true,"straight":false,"out_mode":"out"}
+      },
+      "interactivity":{
+        "detect_on":"canvas",
+        "events":{
+          "onhover":{"enable":false,"mode":"grab"},
+          "onclick":{"enable":false,"mode":"push"}
+        }
+      },
+      "retina_detect":true
+    });
+  </script>
 </body>
-  </html>
+</html>
